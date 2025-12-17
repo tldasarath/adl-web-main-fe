@@ -1,26 +1,105 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Container from "@/Components/Common/Container";
 import MainButton from "@/Components/button/MainButton";
-import { packages } from "@/Datas/packages";
+import { packages as fallbackPackages } from "@/Datas/packages";
+
 import { motion } from "framer-motion";
+import { GetCommonPackages } from "@/lib/api/apis.js";
+
+function normalizePackage(raw = {}) {
+  const image =
+    raw.iconUrl ||
+    raw.iconPublicId ||
+    raw.image ||
+    raw.icon ||
+    "/assets/images/default-package.png";
+
+  const points =
+    Array.isArray(raw.points) && raw.points.length > 0
+      ? raw.points
+      : Array.isArray(raw.keyPoints) && raw.keyPoints.length > 0
+      ? raw.keyPoints
+      : Array.isArray(raw.key_points) && raw.key_points.length > 0
+      ? raw.key_points
+      : [];
+
+  const amount =
+    typeof raw.amount === "number"
+      ? raw.amount
+      : typeof raw.price === "number"
+      ? raw.price
+      : typeof raw.cost === "number"
+      ? raw.cost
+      : raw.amount ?? raw.price ?? raw.cost ?? "";
+
+  const id =
+    raw._id ??
+    raw.id ??
+    raw._id?.toString?.() ??
+    Math.random().toString(36).slice(2);
+
+  const is_home = raw.is_home === true || raw.is_home === "true";
+
+  return {
+    id,
+    title: raw.title ?? raw.name ?? "Package",
+    description: raw.description ?? raw.desc ?? "",
+    points,
+    image,
+    amount,
+    is_home,
+    raw,
+  };
+}
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
   show: {
     opacity: 1,
     y: 0,
-    transition: {
-      duration: 0.6,
-      ease: "easeOut"
-    }
+    transition: { duration: 0.6, ease: "easeOut" },
   },
 };
 
-
 const PackageSection = () => {
+  const [pkgs, setPkgs] = useState(fallbackPackages.map(normalizePackage));
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    let mounted = true;
+    const load = async () => {
+      setLoading(true);
+      try {
+        const res = await GetCommonPackages("home");
+        const data =
+          Array.isArray(res?.data) && res.data.length > 0
+            ? res.data
+            : Array.isArray(res)
+            ? res
+            : [];
+
+        if (mounted && Array.isArray(data) && data.length > 0) {
+          // Normalize server data and set
+          setPkgs(data.map(normalizePackage));
+        }
+        // If backend returns empty or invalid, keep fallback (already set)
+      } catch (err) {
+        // Silent fail: keep fallback data; log for debugging
+        console.error("Failed to fetch home packages:", err);
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    };
+
+    load();
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
   return (
     <motion.section
       initial="hidden"
@@ -28,15 +107,10 @@ const PackageSection = () => {
       viewport={{ once: false, amount: 0.2 }}
       variants={{
         hidden: {},
-        show: {
-          transition: {
-            staggerChildren: 0.15,
-          },
-        },
+        show: { transition: { staggerChildren: 0.15 } },
       }}
       className="relative py-8 md:py-14"
     >
-
       {/* BG Shapes */}
       <div className="absolute left-[-10%] md:left-[-10px] -z-10 bottom-0 opacity-60 pointer-events-none select-none">
         <Image
@@ -69,23 +143,21 @@ const PackageSection = () => {
               Our Pricing Packages
             </h2>
             <p className="text-base lg:text-lg mb-8 font-light leading-normal">
-              Choose the perfect package for your business needs. All packages include
-              high-quality development and dedicated support to ensure your success.
+              Choose the perfect package for your business needs. All packages
+              include high-quality development and dedicated support to ensure
+              your success.
             </p>
           </motion.div>
 
           {/* Cards */}
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
-            {packages.map((pkg) => (
+            {pkgs.map((pkg) => (
               <motion.div
                 key={pkg.id}
                 variants={fadeUp}
-                className="glass-bg rounded-3xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 
-             flex flex-col h-full"
+                className="glass-bg rounded-3xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col h-full"
               >
-                {/* CONTENT AREA – stretches to fill height */}
                 <div className="flex-1 flex flex-col">
-
                   {/* IMAGE + TITLE */}
                   <div className="flex items-center gap-4 mb-4">
                     <div className="w-20 h-20 lg:w-24 lg:h-24 rounded-xl flex items-center justify-center">
@@ -98,20 +170,22 @@ const PackageSection = () => {
                       />
                     </div>
 
-                    <h3 className="text-xl md:text-2xl font-semibold">{pkg.title}</h3>
+                    <h3 className="text-xl md:text-2xl font-semibold">
+                      {pkg.title}
+                    </h3>
                   </div>
 
                   {/* DESCRIPTION */}
-             <p className="text-sm md:text-base font-light leading-relaxed mb-4 
-              h-auto md:h-24 lg:h-30 ">
-  {pkg.description}
-</p>
+                  <p className="text-sm md:text-base font-light leading-relaxed mb-4 h-auto md:h-24 lg:h-30">
+                    {pkg.description}
+                  </p>
+
                   {/* Divider */}
                   <div className="w-full h-[1px] bg-white/40 mb-4"></div>
 
-                  {/* FEATURES – let this section stretch if needed */}
+                  {/* FEATURES */}
                   <ul className="space-y-2 flex-1">
-                    {pkg.keyPoints.map((point, index) => (
+                    {(pkg.points || []).map((point, index) => (
                       <li key={index} className="flex items-start">
                         <svg
                           className="w-5 h-5 text-yellow-400 mr-2 mt-0.5 flex-shrink-0"
@@ -130,26 +204,20 @@ const PackageSection = () => {
                       </li>
                     ))}
                   </ul>
-
                 </div>
 
-                {/* PRICE BUTTON — stays fixed at bottom */}
+                {/* PRICE BUTTON */}
                 <div className="flex justify-center mt-6">
                   <button className="w-2/3 py-3 rounded-3xl glass-bg text-white font-semibold text-lg tracking-wide">
-                    AED {pkg.price}
+                    AED {pkg.amount ?? ""}
                   </button>
                 </div>
               </motion.div>
-
-
             ))}
           </div>
 
           {/* View More Button */}
-          <motion.div
-            variants={fadeUp}
-            className="flex justify-center mt-10"
-          >
+          <motion.div variants={fadeUp} className="flex justify-center mt-10">
             <MainButton text="View more" url="/uae-freezone-business-setup" />
           </motion.div>
         </div>

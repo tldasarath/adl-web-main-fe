@@ -1,12 +1,12 @@
-// components/PricingPackages.jsx
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Container from "../Common/Container";
-import { packages } from "@/Datas/packages";
+import { packages as fallbackPackages } from "@/Datas/packages";
 import MainButton from "../button/MainButton";
+import { GetCommonPackages } from "@/lib/api/apis";
 
 const sectionVariant = {
   hidden: { opacity: 0, y: 8 },
@@ -37,9 +37,85 @@ const buttonMotion = {
   tap: { scale: 0.97 },
 };
 
+function normalizeForUI(raw = {}) {
+  const image =
+    raw.iconUrl ||
+    raw.iconPublicId ||
+    raw.image ||
+    raw.icon ||
+    "/assets/images/default-package.png";
+
+  const keyPoints =
+    Array.isArray(raw.points) && raw.points.length > 0
+      ? raw.points
+      : Array.isArray(raw.keyPoints) && raw.keyPoints.length > 0
+      ? raw.keyPoints
+      : Array.isArray(raw.key_points) && raw.key_points.length > 0
+      ? raw.key_points
+      : [];
+
+  const price =
+    typeof raw.amount === "number"
+      ? raw.amount
+      : typeof raw.price === "number"
+      ? raw.price
+      : typeof raw.cost === "number"
+      ? raw.cost
+      : raw.amount ?? raw.price ?? raw.cost ?? "";
+
+  const id = raw._id ?? raw.id ?? Math.random().toString(36).slice(2);
+
+  return {
+    image,
+    title: raw.title ?? raw.name ?? "Package",
+    description: raw.description ?? raw.desc ?? "",
+    keyPoints,
+    price,
+    id,
+    _raw: raw,
+  };
+}
+
 export default function PricingPackages() {
+  const [pkgs, setPkgs] = useState(fallbackPackages.map(normalizeForUI));
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    let mounted = true;
+
+    const load = async () => {
+      setLoading(true);
+      try {
+        const res = await GetCommonPackages("freezone");
+        const data =
+          Array.isArray(res?.data) && res.data.length > 0
+            ? res.data
+            : Array.isArray(res)
+            ? res
+            : [];
+
+        if (mounted && Array.isArray(data) && data.length > 0) {
+          setPkgs(data.map(normalizeForUI));
+        }
+      } catch (err) {
+        console.error("Failed to fetch freezone packages:", err);
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    };
+
+    load();
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
   return (
-    <section id="freezone-packages" className="relative py-8 md:py-16 lg:py-24 overflow-hidden">
+    <section
+      id="freezone-packages"
+      className="relative py-8 md:py-16 lg:py-24 overflow-hidden"
+    >
       <motion.div
         className=" absolute right-[0%] md:right-[0px] -z-10 top-[-15%] md:top-[-20%] lg:top-0  pointer-events-none select-none"
         initial={{ opacity: 0, x: 120, rotate: 2 }}
@@ -91,7 +167,7 @@ export default function PricingPackages() {
             viewport={{ once: false, amount: 0.2 }}
             variants={sectionVariant}
           >
-            {packages?.map((pkg) => {
+            {pkgs?.map((pkg) => {
               const isCenter = !!pkg.emphasized;
               return (
                 <motion.article
@@ -116,22 +192,19 @@ export default function PricingPackages() {
                       />
                     </div>
 
-                    {/* <div className="flex-1"> */}
                     <h3 className="text-white text-lg md:text-2xl font-semibold text-start lg:text-center whitespace-pre-line">
                       {pkg.title}
                     </h3>
-                    {/* </div> */}
                   </div>
 
                   <p className="text-slate-300 font-normal text-sm mt-4">
                     {pkg.description}
                   </p>
 
-                  {/* ——————————— divider Line——————————— */}
                   <div className="mt-4 mb-4 border-t border-white " />
 
                   <ul className={`mt-2 space-y-3 ${isCenter ? "md:mt-4" : ""}`}>
-                    {pkg.keyPoints.map((b, i) => (
+                    {(pkg.keyPoints || []).map((b, i) => (
                       <li key={i} className="flex items-start gap-4">
                         <span
                           aria-hidden
@@ -178,7 +251,7 @@ export default function PricingPackages() {
                         }`}
                       role="status"
                     >
-                     AED {pkg.price}
+                      AED {pkg.price}
                     </div>
                   </div>
 
@@ -187,14 +260,13 @@ export default function PricingPackages() {
                     className="pointer-events-none absolute left-6 right-6 bottom-[-18px] h-8 rounded-b-[18px] bg-[rgba(255,255,255,0.02)] border border-white/6 blur-sm opacity-60"
                     style={{ zIndex: -1 }}
                   />
-{/* Glass Shine on Hover - unchanged element placement */}
-<div
+
+                  <div
                     className="absolute inset-0 overflow-hidden rounded-[20px] pointer-events-none"
                     aria-hidden
                   >
                     <div className="shine-effect" />
                   </div>
-
                 </motion.article>
               );
             })}
@@ -204,29 +276,6 @@ export default function PricingPackages() {
             className="w-full flex items-center justify-center"
             variants={childVariant}
           >
-            {/* 
-            <button
-              type="button"
-              className="relative inline-flex items-center gap-3 px-6 py-3 rounded-full border border-[#E7D6A4]/30 text-white bg-transparent overflow-hidden"
-            >
-              <span className="relative z-10">Get a Quote Today</span>
-
-              <span
-                className="relative z-10 inline-flex items-center justify-center w-9 h-9 rounded-full ml-2 border border-[#E7D6A4]/30"
-                aria-hidden
-              >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                  <path d="M5 12h13M13 5l6 7-6 7" stroke="#E7D6A4" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </span>
-
-             
-              <span
-                className="absolute left-[-40%] top-0 bottom-0 w-1/2 bg-gradient-to-r from-transparent via-white/12 to-transparent transform -skew-x-12 animate-[shine_2.2s_linear_infinite]"
-                style={{ opacity: 0.6 }}
-                aria-hidden
-              />
-            </button> */}
             <motion.div
               whileHover={buttonMotion.hover}
               whileTap={buttonMotion.tap}
@@ -239,7 +288,7 @@ export default function PricingPackages() {
       </Container>
 
       <style jsx>{`
- .shine-effect {
+        .shine-effect {
           position: absolute;
           top: -120%;
           left: -150%;
@@ -276,10 +325,9 @@ export default function PricingPackages() {
             left: -180%;
             width: 260%;
             height: 260%;
-            opacity: 0.0;
+            opacity: 0;
           }
         }
-
       `}</style>
     </section>
   );

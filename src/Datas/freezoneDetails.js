@@ -12,6 +12,7 @@ export const freezoneDetails = [
         ]
     },
     "id": "ifza-freezone-dubai",
+    "pageName": "IFZA",
     "hero": {
         "headline": "Launch Your Business in IFZA Freezone Dubai",
         "subheadline": "Flexible, fast, and cost-effective business setup solutions with ADL Business Solutions.",
@@ -169,6 +170,7 @@ export const freezoneDetails = [
 }, 
 {
     "id": "jafza-freezone-dubai",
+    "pageName": "JAFZA",
     "meta": {
         "title": "JAFZA Freezone Dubai | Company Setup & Business Licenses | ADL Business Solutions",
         "description": "Explore JAFZA Freezone Dubai with ADL Business Solutions. Get trading, service, industrial, and e-commerce licenses with world-class facilities. Start your UAE business today!",
@@ -331,6 +333,7 @@ export const freezoneDetails = [
 },
  {
     "id": "meydan-freezone-dubai",
+    "pageName": "Meydan",
     "meta": {
         "title": "Meydan Freezone Dubai | Business Setup & Company Licenses | ADL Business Solutions",
         "description": "Set up your business in Meydan Freezone Dubai with ADL Business Solutions. Get trading, service, e-commerce, and professional licenses with flexible office solutions. Start today!",
@@ -493,6 +496,7 @@ export const freezoneDetails = [
 },
 {
     "id": "dubai-south-freezone",
+
     "meta": {
         "title": "Dubai South Freezone | Business Setup & Company Licenses | ADL Business Solutions",
         "description": "Set up your business in Dubai South Freezone with ADL Business Solutions. Get trading, service, e-commerce, and industrial licenses with world-class facilities. Start today!",
@@ -655,6 +659,7 @@ export const freezoneDetails = [
 },
 {
     "id": "dafza-freezone-dubai",
+    "pageName": "DAFZA",
     "meta": {
         "title": "DAFZA Dubai | Company Setup & Business Licenses | ADL Business Solutions",
         "description": "Set up your business in Dubai Airport Freezone (DAFZA) with ADL Business Solutions. Get trading, service, e-commerce, and industrial licenses with premium office solutions.",
@@ -817,6 +822,7 @@ export const freezoneDetails = [
 },
 {
     "id": "dubai-media-internet-d3-difc",
+    "pageName": "D3",
     "meta": {
         "title": "Dubai Media City, Internet City, Design District & DIFC | Company Setup | ADL Business Solutions",
         "description": "Set up your business in Dubai Media City, Internet City, Design District, or DIFC with ADL Business Solutions. Flexible licenses, premium offices, and fast approvals.",
@@ -984,6 +990,7 @@ export const freezoneDetails = [
 },
 {
     "id": "adgm-abu-dhabi",
+    "pageName": "ADGM Abu Dhabi",
     "meta": {
         "title": "ADGM Abu Dhabi | Company Setup & Business Licenses | ADL Business Solutions",
         "description": "Set up your business in ADGM Abu Dhabi with ADL Business Solutions. Get financial, professional, and service licenses with premium office solutions and fast approvals.",
@@ -1149,6 +1156,7 @@ export const freezoneDetails = [
 },
 {
     "id": "jafza-freezone-dubai",
+    "pageName": "JAFZA",
     "meta": {
         "title": "JAFZA Freezone Dubai | Company Setup & Business Licenses | ADL Business Solutions",
         "description": "Explore JAFZA Freezone Dubai with ADL Business Solutions. Get trading, service, industrial, and e-commerce licenses with world-class facilities. Start your UAE business today!",
