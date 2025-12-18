@@ -1,24 +1,47 @@
 "use client";
 
 import Container from "@/Components/Common/Container";
-import { blogs } from "@/Datas/blogs";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useAnimation, useInView } from "framer-motion";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
+import { blogs } from "@/lib/api/apis";
 
 export default function BlogSection() {
+  const [blogData, setBlogData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const ref = useRef(null);
   const isInView = useInView(ref, {
-    once: false,        // animate every time it enters viewport
+    once: false,
     margin: "-100px",
   });
 
   const controls = useAnimation();
 
+  // ✅ Fetch blogs with proper loading handling
+  useEffect(() => {
+    const fetchBlog = async () => {
+      try {
+        const res = await blogs("1", "8");
+
+        if (res?.success) {
+          setBlogData(res.data);
+        }
+      } catch (error) {
+        console.error("Blog Fetch Error:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlog();
+  }, []);
+
+  // ✅ Animation trigger
   useEffect(() => {
     if (isInView) controls.start("visible");
-    else controls.start("hidden"); // reset for replay
+    else controls.start("hidden");
   }, [isInView, controls]);
 
   const cardVariants = {
@@ -46,7 +69,7 @@ export default function BlogSection() {
           }}
           className="max-w-7xl mx-auto px-6"
         >
-          {/* Header */}
+          {/* ✅ Header */}
           <div className="text-center mb-12">
             <h2 className="text-2xl mb-3 md:text-3xl main-text font-bold text-white">
               Our Recent Blog
@@ -59,48 +82,51 @@ export default function BlogSection() {
             </p>
           </div>
 
-          {/* Blog Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
-            {blogs.slice(0, 4).map((blog, index) => (
-              <motion.div
-                key={index}
-                custom={index}
-                variants={cardVariants}
-                initial="hidden"
-                animate={controls}
-              >
-                <Link
-                  href={`/blogs/${blog.id}`}
-                  className="relative group overflow-hidden rounded-2xl"
+          {/* ✅ Blog Cards */}
+          {loading ? (
+            <p className="text-center text-white text-lg">Loading blogs...</p>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+              {blogData.slice(0, 4).map((blog, index) => (
+                <motion.div
+                  key={blog._id || index}
+                  custom={index}
+                  variants={cardVariants}
+                  initial="hidden"
+                  animate={controls}
                 >
-                  <Image
-                    src={blog.image}
-                    alt={blog.title}
-                    width={400}
-                    height={300}
-                    className="object-contain w-64 h-96 transition-transform duration-300 group-hover:scale-105"
-                  />
-
-                  {/* Bottom overlay */}
-                  <div
-                    className="absolute w-50 bottom-0 right-0 border-b border-b-[#E9C05F] p-5"
-                    style={{
-                      backgroundImage:
-                        "linear-gradient(90deg, rgba(36,43,61,1) 0%, rgba(10,14,29,1) 48%)",
-                      backgroundPosition: "center center",
-                    }}
+                  <Link
+                    href={`/blogs/${blog.url}`}
+                    className="relative group overflow-hidden rounded-2xl block"
                   >
-                    <h3 className="text-lg font-semibold mb-2 truncate">
-                      {blog.title}
-                    </h3>
-                    <p className="text-sm text-gray-300 line-clamp-3">
-                      {blog.excerpt}
-                    </p>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
+                    <Image
+                      src={blog.image}
+                      alt={blog.title}
+                      width={400}
+                      height={300}
+                      className="object-contain w-64 h-96 transition-transform duration-300 group-hover:scale-105"
+                    />
+
+                    {/* ✅ Fixed Tailwind Width */}
+                    <div
+                      className="absolute w-[50%] bottom-0 right-0 border-b border-b-[#E9C05F] p-5"
+                      style={{
+                        backgroundImage:
+                          "linear-gradient(90deg, rgba(36,43,61,1) 0%, rgba(10,14,29,1) 48%)",
+                      }}
+                    >
+                      <h3 className="text-lg font-semibold mb-2 truncate text-white">
+                        {blog.title}
+                      </h3>
+                      <p className="text-sm text-gray-300 line-clamp-3">
+                        {blog.excerpt}
+                      </p>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          )}
         </motion.div>
       </Container>
     </section>

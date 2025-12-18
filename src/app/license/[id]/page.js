@@ -9,14 +9,40 @@ import MainSection from "@/Components/LicensePage/MainSection";
 import RelatedBlogs from "@/Components/LicensePage/RelatedBlogs";
 import WhyADLSection from "@/Components/LicensePage/WhyADLSection";
 import Navbar from "@/Components/Navbar/Navbar";
-import { blogs } from "@/Datas/blogs";
+import { blogDatas } from "@/Datas/blogs";
 import { licenseDetails } from "@/Datas/licenseDetails";
+import { blogInnerPage } from "@/lib/api/apis";
 import { useParams } from "next/navigation";
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 const page = () => {
     const params = useParams()
-    const license = licenseDetails.find(item => item.id === params.id);
+      const [blogData, setBlogData] = useState([]);
+    
+    // const license = licenseDetails.find(item => item.id === params.id);
+    const license = useMemo(() => {
+    return licenseDetails.find(
+      item => String(item.id) === String(params?.id)
+    );
+  }, [params?.id]); 
+  useEffect(() => {
+    if (!params?.id) return;
+
+    const fetchBlog = async () => {
+      try {
+        const res = await blogInnerPage(params.id);
+        setBlogData(res?.data || []);
+      } catch (error) {
+        console.error("Blog fetch error:", error);
+        setBlogData([]);
+      }
+    };
+
+    fetchBlog();
+  }, [params?.id]);
+
+  // ✅ SAFETY GUARD
+  if (!license) return null;
 
     return (
         <div>
@@ -32,7 +58,7 @@ const page = () => {
             <WhyADLSection description={license.whyADL} />
             <InnerBanner title={license.banner.title} description={license.banner.description} buttonText={"Book a Free Consultation"} />
             <FAQS faqs={license.faqs} />
-            <RelatedBlogs blogs={blogs.slice(0,4)} />
+            <RelatedBlogs blogs={blogData.length ? blogData : license.blogs}  />
             <Footer />
         </div>
     );

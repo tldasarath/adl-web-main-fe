@@ -9,11 +9,37 @@ import AboutVisa from "@/Components/visaPage/AboutVisa";
 import VisaTabs from "@/Components/visaPage/VisaTabs";
 import { blogs } from "@/Datas/blogs";
 import { visaDetails } from "@/Datas/visaData";
+import { blogInnerPage } from "@/lib/api/apis";
 import { useParams } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
 
 export default function Page() {
   const params = useParams();
-  const visa = visaDetails.find((item) => item.id === params.id);
+  // const visa = visaDetails.find((item) => item.id === params.id);
+  const [blogData, setBlogData] = useState([]);
+
+
+  const visa = useMemo(() => {
+    return visaDetails.find(
+      v => String(v.id) === String(params?.id)
+    );
+  }, [params?.id]);
+  useEffect(() => {
+    if (!params?.id) return;
+
+    const fetchBlog = async () => {
+      try {
+        const res = await blogInnerPage(params.id);
+        setBlogData(res?.data || []);
+      } catch (error) {
+        console.error("Blog fetch error:", error);
+        setBlogData([]);
+      }
+    };
+
+    fetchBlog();
+  }, [params?.id]);
+    if (!visa) return null;
 
   return (
     <div>
@@ -39,7 +65,7 @@ export default function Page() {
         buttonUrl={visa.meeting.buttonUrl}
       />
       <FAQSection faqs={visa.faqs} />
-      <SuggestedBlogs blogs={visa.relatedBlogs} />
+      <SuggestedBlogs blogs={blogData.length ? blogData : visa.relatedBlogs}  />
       <Footer />
     </div>
   );

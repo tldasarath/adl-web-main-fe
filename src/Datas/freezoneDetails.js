@@ -121,22 +121,22 @@ export const freezoneDetails = [
             {
                 "name": "Flexi Desk Package",
                 "description": "License + flexi-desk office",
-                "startingPriceAED": 11500
+                "price": 11500
             },
             {
                 "name": "Small Office Package",
                 "description": "License + serviced office",
-                "startingPriceAED": 17500
+                "price": 17500
             },
             {
                 "name": "Warehouse / Industrial",
                 "description": "License + warehouse unit",
-                "startingPriceAED": 35000
+                "price": 35000
             },
             {
                 "name": "Premium Package",
                 "description": "License + executive office + visas",
-                "startingPriceAED": 45000
+                "price": 45000
             }
         ]
     },
@@ -284,22 +284,22 @@ export const freezoneDetails = [
             {
                 "name": "Flexi Desk Package",
                 "description": "License + flexi-desk office",
-                "startingPriceAED": 15000
+                "price": 15000
             },
             {
                 "name": "Small Office Package",
                 "description": "License + serviced office",
-                "startingPriceAED": 25000
+                "price": 25000
             },
             {
                 "name": "Warehouse / Industrial",
                 "description": "License + warehouse unit",
-                "startingPriceAED": 50000
+                "price": 50000
             },
             {
                 "name": "Premium Package",
                 "description": "License + executive office + visas",
-                "startingPriceAED": 65000
+                "price": 65000
             }
         ]
     },
@@ -447,22 +447,22 @@ export const freezoneDetails = [
             {
                 "name": "Flexi Desk Package",
                 "description": "License + flexi-desk office",
-                "startingPriceAED": 12500
+                "price": 12500
             },
             {
                 "name": "Small Office Package",
                 "description": "License + serviced office",
-                "startingPriceAED": 20000
+                "price": 20000
             },
             {
                 "name": "Warehouse / Industrial",
                 "description": "License + warehouse unit",
-                "startingPriceAED": 40000
+                "price": 40000
             },
             {
                 "name": "Premium Package",
                 "description": "License + executive office + visas",
-                "startingPriceAED": 55000
+                "price": 55000
             }
         ]
     },
@@ -610,22 +610,22 @@ export const freezoneDetails = [
             {
                 "name": "Flexi Desk Package",
                 "description": "License + flexi-desk office",
-                "startingPriceAED": 13500
+                "price": 13500
             },
             {
                 "name": "Small Office Package",
                 "description": "License + serviced office",
-                "startingPriceAED": 22000
+                "price": 22000
             },
             {
                 "name": "Warehouse / Industrial",
                 "description": "License + warehouse unit",
-                "startingPriceAED": 45000
+                "price": 45000
             },
             {
                 "name": "Premium Package",
                 "description": "License + executive office + visas",
-                "startingPriceAED": 60000
+                "price": 60000
             }
         ]
     },
@@ -773,22 +773,22 @@ export const freezoneDetails = [
             {
                 "name": "Flexi Desk Package",
                 "description": "License + flexi-desk office",
-                "startingPriceAED": 16000
+                "price": 16000
             },
             {
                 "name": "Small Office Package",
                 "description": "License + serviced office",
-                "startingPriceAED": 28000
+                "price": 28000
             },
             {
                 "name": "Warehouse / Industrial",
                 "description": "License + warehouse unit",
-                "startingPriceAED": 55000
+                "price": 55000
             },
             {
                 "name": "Premium Package",
                 "description": "License + executive office + visas",
-                "startingPriceAED": 70000
+                "price": 70000
             }
         ]
     },
@@ -941,22 +941,22 @@ export const freezoneDetails = [
             {
                 "name": "Flexi Desk / Co-working",
                 "description": "License + shared office",
-                "startingPriceAED": 18000
+                "price": 18000
             },
             {
                 "name": "Small Office Package",
                 "description": "License + serviced office",
-                "startingPriceAED": 28000
+                "price": 28000
             },
             {
                 "name": "Executive / Specialized Office",
                 "description": "License + executive office + studio/innovation space",
-                "startingPriceAED": 50000
+                "price": 50000
             },
             {
                 "name": "Premium Package",
                 "description": "License + visas + full support services",
-                "startingPriceAED": 65000
+                "price": 65000
             }
         ]
     },
@@ -1107,22 +1107,22 @@ export const freezoneDetails = [
             {
                 "name": "Flexi Desk / Co-working",
                 "description": "License + shared office",
-                "startingPriceAED": 20000
+                "price": 20000
             },
             {
                 "name": "Small Office Package",
                 "description": "License + serviced office",
-                "startingPriceAED": 35000
+                "price": 35000
             },
             {
                 "name": "Executive Office",
                 "description": "License + executive office + visas",
-                "startingPriceAED": 60000
+                "price": 60000
             },
             {
                 "name": "Premium Package",
                 "description": "Full-service setup including licenses, visas & support",
-                "startingPriceAED": 75000
+                "price": 75000
             }
         ]
     },
@@ -1270,22 +1270,22 @@ export const freezoneDetails = [
             {
                 "name": "Flexi Desk Package",
                 "description": "License + flexi-desk office",
-                "startingPriceAED": 15000
+                "price": 15000
             },
             {
                 "name": "Small Office Package",
                 "description": "License + serviced office",
-                "startingPriceAED": 25000
+                "price": 25000
             },
             {
                 "name": "Warehouse / Industrial",
                 "description": "License + warehouse unit",
-                "startingPriceAED": 50000
+                "price": 50000
             },
             {
                 "name": "Premium Package",
                 "description": "License + executive office + visas",
-                "startingPriceAED": 65000
+                "price": 65000
             }
         ]
     },
@@ -1432,22 +1432,22 @@ export const freezoneDetails = [
             {
                 "name": "Flexi Desk Package",
                 "description": "License + flexi-desk office",
-                "startingPriceAED": 12500
+                "price": 12500
             },
             {
                 "name": "Small Office Package",
                 "description": "License + serviced office",
-                "startingPriceAED": 20000
+                "price": 20000
             },
             {
                 "name": "Warehouse / Industrial",
                 "description": "License + warehouse unit",
-                "startingPriceAED": 40000
+                "price": 40000
             },
             {
                 "name": "Premium Package",
                 "description": "License + executive office + visas",
-                "startingPriceAED": 55000
+                "price": 55000
             }
         ]
     },
@@ -1594,22 +1594,22 @@ export const freezoneDetails = [
             {
                 "name": "Flexi Desk Package",
                 "description": "License + flexi-desk office",
-                "startingPriceAED": 13500
+                "price": 13500
             },
             {
                 "name": "Small Office Package",
                 "description": "License + serviced office",
-                "startingPriceAED": 22000
+                "price": 22000
             },
             {
                 "name": "Warehouse / Industrial",
                 "description": "License + warehouse unit",
-                "startingPriceAED": 45000
+                "price": 45000
             },
             {
                 "name": "Premium Package",
                 "description": "License + executive office + visas",
-                "startingPriceAED": 60000
+                "price": 60000
             }
         ]
     },
@@ -1756,22 +1756,22 @@ export const freezoneDetails = [
             {
                 "name": "Flexi Desk Package",
                 "description": "License + flexi-desk office",
-                "startingPriceAED": 16000
+                "price": 16000
             },
             {
                 "name": "Small Office Package",
                 "description": "License + serviced office",
-                "startingPriceAED": 28000
+                "price": 28000
             },
             {
                 "name": "Warehouse / Industrial",
                 "description": "License + warehouse unit",
-                "startingPriceAED": 55000
+                "price": 55000
             },
             {
                 "name": "Premium Package",
                 "description": "License + executive office + visas",
-                "startingPriceAED": 70000
+                "price": 70000
             }
         ]
     },
@@ -1923,22 +1923,22 @@ export const freezoneDetails = [
             {
                 "name": "Flexi Desk / Co-working",
                 "description": "License + shared office",
-                "startingPriceAED": 18000
+                "price": 18000
             },
             {
                 "name": "Small Office Package",
                 "description": "License + serviced office",
-                "startingPriceAED": 28000
+                "price": 28000
             },
             {
                 "name": "Executive / Specialized Office",
                 "description": "License + executive office + studio/innovation space",
-                "startingPriceAED": 50000
+                "price": 50000
             },
             {
                 "name": "Premium Package",
                 "description": "License + visas + full support services",
-                "startingPriceAED": 65000
+                "price": 65000
             }
         ]
     },
@@ -2088,22 +2088,22 @@ export const freezoneDetails = [
             {
                 "name": "Flexi Desk / Co-working",
                 "description": "License + shared office",
-                "startingPriceAED": 20000
+                "price": 20000
             },
             {
                 "name": "Small Office Package",
                 "description": "License + serviced office",
-                "startingPriceAED": 35000
+                "price": 35000
             },
             {
                 "name": "Executive Office",
                 "description": "License + executive office + visas",
-                "startingPriceAED": 60000
+                "price": 60000
             },
             {
                 "name": "Premium Package",
                 "description": "Full-service setup including licenses, visas & support",
-                "startingPriceAED": 75000
+                "price": 75000
             }
         ]
     },
@@ -2250,22 +2250,22 @@ export const freezoneDetails = [
             {
                 "name": "Flexi Desk / Co-working",
                 "description": "License + shared office",
-                "startingPriceAED": 18000
+                "price": 18000
             },
             {
                 "name": "Small Office Package",
                 "description": "License + serviced office",
-                "startingPriceAED": 30000
+                "price": 30000
             },
             {
                 "name": "Industrial / Warehouse",
                 "description": "License + warehouse/industrial unit",
-                "startingPriceAED": 55000
+                "price": 55000
             },
             {
                 "name": "Premium Package",
                 "description": "Full-service setup including licenses, visas & support",
-                "startingPriceAED": 75000
+                "price": 75000
             }
         ]
     },
@@ -2412,22 +2412,22 @@ export const freezoneDetails = [
             {
                 "name": "Flexi Desk / Co-working",
                 "description": "License + shared office",
-                "startingPriceAED": 20000
+                "price": 20000
             },
             {
                 "name": "Small Office Package",
                 "description": "License + serviced office",
-                "startingPriceAED": 35000
+                "price": 35000
             },
             {
                 "name": "Executive / Research Office",
                 "description": "License + executive office + labs",
-                "startingPriceAED": 60000
+                "price": 60000
             },
             {
                 "name": "Premium Package",
                 "description": "Full-service setup including licenses, visas & support",
-                "startingPriceAED": 75000
+                "price": 75000
             }
         ]
     },
@@ -2569,22 +2569,22 @@ export const freezoneDetails = [
             {
                 "name": "Flexi Desk / Co-working",
                 "description": "License + shared office",
-                "startingPriceAED": 18000
+                "price": 18000
             },
             {
                 "name": "Small Office Package",
                 "description": "License + serviced office",
-                "startingPriceAED": 30000
+                "price": 30000
             },
             {
                 "name": "Studio / Executive Office",
                 "description": "License + media studio & office",
-                "startingPriceAED": 55000
+                "price": 55000
             },
             {
                 "name": "Premium Package",
                 "description": "Full-service setup including licenses, visas & support",
-                "startingPriceAED": 70000
+                "price": 70000
             }
         ]
     },
@@ -2731,22 +2731,22 @@ export const freezoneDetails = [
             {
                 "name": "Flexi Desk / Co-working",
                 "description": "License + shared office",
-                "startingPriceAED": 12500
+                "price": 12500
             },
             {
                 "name": "Small Office Package",
                 "description": "License + serviced office",
-                "startingPriceAED": 20000
+                "price": 20000
             },
             {
                 "name": "Industrial / Warehouse",
                 "description": "License + warehouse unit",
-                "startingPriceAED": 35000
+                "price": 35000
             },
             {
                 "name": "Premium Package",
                 "description": "Full-service setup including licenses, visas & support",
-                "startingPriceAED": 50000
+                "price": 50000
             }
         ]
     },
@@ -2893,22 +2893,22 @@ export const freezoneDetails = [
             {
                 "name": "Flexi Desk / Co-working",
                 "description": "License + shared office",
-                "startingPriceAED": 13000
+                "price": 13000
             },
             {
                 "name": "Small Office Package",
                 "description": "License + serviced office",
-                "startingPriceAED": 22000
+                "price": 22000
             },
             {
                 "name": "Industrial / Warehouse",
                 "description": "License + warehouse unit",
-                "startingPriceAED": 38000
+                "price": 38000
             },
             {
                 "name": "Premium Package",
                 "description": "Full-service setup including licenses, visas & support",
-                "startingPriceAED": 55000
+                "price": 55000
             }
         ]
     },
@@ -3047,22 +3047,22 @@ export const freezoneDetails = [
             {
                 "name": "Flexi Desk / Co-working",
                 "description": "License + shared office",
-                "startingPriceAED": 9000
+                "price": 9000
             },
             {
                 "name": "Small Office Package",
                 "description": "License + serviced office",
-                "startingPriceAED": 15000
+                "price": 15000
             },
             {
                 "name": "Executive Office",
                 "description": "License + office setup",
-                "startingPriceAED": 25000
+                "price": 25000
             },
             {
                 "name": "Premium Package",
                 "description": "Full-service setup including licenses, visas & support",
-                "startingPriceAED": 35000
+                "price": 35000
             }
         ]
     },
@@ -3209,22 +3209,22 @@ export const freezoneDetails = [
             {
                 "name": "Flexi Desk / Co-working",
                 "description": "License + shared office",
-                "startingPriceAED": 12000
+                "price": 12000
             },
             {
                 "name": "Small Office Package",
                 "description": "License + serviced office",
-                "startingPriceAED": 20000
+                "price": 20000
             },
             {
                 "name": "Executive / Publishing Office",
                 "description": "License + office + publishing facilities",
-                "startingPriceAED": 40000
+                "price": 40000
             },
             {
                 "name": "Premium Package",
                 "description": "Full-service setup including licenses, visas & support",
-                "startingPriceAED": 55000
+                "price": 55000
             }
         ]
     },
@@ -3371,22 +3371,22 @@ export const freezoneDetails = [
             {
                 "name": "Flexi Desk / Co-working",
                 "description": "License + shared office",
-                "startingPriceAED": 10000
+                "price": 10000
             },
             {
                 "name": "Small Office Package",
                 "description": "License + serviced office",
-                "startingPriceAED": 18000
+                "price": 18000
             },
             {
                 "name": "Industrial / Warehouse",
                 "description": "License + warehouse unit",
-                "startingPriceAED": 35000
+                "price": 35000
             },
             {
                 "name": "Premium Package",
                 "description": "Full-service setup including licenses, visas & support",
-                "startingPriceAED": 50000
+                "price": 50000
             }
         ]
     },
@@ -3535,22 +3535,22 @@ export const freezoneDetails = [
       {
         "name": "Flexi Desk / Co-working",
         "description": "License + shared office",
-        "startingPriceAED": 15000
+        "price": 15000
       },
       {
         "name": "Small Office Package",
         "description": "License + serviced office",
-        "startingPriceAED": 25000
+        "price": 25000
       },
       {
         "name": "Industrial / Warehouse",
         "description": "License + warehouse unit",
-        "startingPriceAED": 40000
+        "price": 40000
       },
       {
         "name": "Premium Package",
         "description": "Full-service setup including licenses, visas & support",
-        "startingPriceAED": 60000
+        "price": 60000
       }
     ]
   },
@@ -3701,22 +3701,22 @@ export const freezoneDetails = [
       {
         "name": "Flexi Desk / Co-working",
         "description": "License + shared office",
-        "startingPriceAED": 8000
+        "price": 8000
       },
       {
         "name": "Small Office Package",
         "description": "License + serviced office",
-        "startingPriceAED": 15000
+        "price": 15000
       },
       {
         "name": "Industrial / Warehouse",
         "description": "License + warehouse unit",
-        "startingPriceAED": 30000
+        "price": 30000
       },
       {
         "name": "Premium Package",
         "description": "Full-service setup including licenses, visas & support",
-        "startingPriceAED": 45000
+        "price": 45000
       }
     ]
   },
@@ -3860,22 +3860,22 @@ export const freezoneDetails = [
       {
         "name": "Flexi Desk / Co-working",
         "description": "License + shared office",
-        "startingPriceAED": 9500
+        "price": 9500
       },
       {
         "name": "Small Office Package",
         "description": "License + serviced office",
-        "startingPriceAED": 16000
+        "price": 16000
       },
       {
         "name": "Executive Office",
         "description": "License + media office setup",
-        "startingPriceAED": 28000
+        "price": 28000
       },
       {
         "name": "Premium Package",
         "description": "Full-service setup including licenses, visas & support",
-        "startingPriceAED": 40000
+        "price": 40000
       }
     ]
   },
@@ -4027,22 +4027,22 @@ export const freezoneDetails = [
       {
         "name": "Flexi Desk / Co-working",
         "description": "License + shared office",
-        "startingPriceAED": 10000
+        "price": 10000
       },
       {
         "name": "Small Office Package",
         "description": "License + serviced office",
-        "startingPriceAED": 18000
+        "price": 18000
       },
       {
         "name": "Industrial / Warehouse",
         "description": "License + warehouse unit",
-        "startingPriceAED": 35000
+        "price": 35000
       },
       {
         "name": "Premium Package",
         "description": "Full-service setup including licenses, visas & support",
-        "startingPriceAED": 50000
+        "price": 50000
       }
     ]
   },
@@ -4187,22 +4187,22 @@ export const freezoneDetails = [
       {
         "name": "Flexi Desk / Co-working",
         "description": "License + shared office",
-        "startingPriceAED": 10000
+        "price": 10000
       },
       {
         "name": "Small Office Package",
         "description": "License + serviced office",
-        "startingPriceAED": 17000
+        "price": 17000
       },
       {
         "name": "Executive / Media Office",
         "description": "License + office setup",
-        "startingPriceAED": 30000
+        "price": 30000
       },
       {
         "name": "Premium Package",
         "description": "Full-service setup including licenses, visas & support",
-        "startingPriceAED": 45000
+        "price": 45000
       }
     ]
   },
@@ -4353,22 +4353,22 @@ export const freezoneDetails = [
       {
         "name": "Flexi Desk / Co-working",
         "description": "License + shared office",
-        "startingPriceAED": 7500
+        "price": 7500
       },
       {
         "name": "Small Office Package",
         "description": "License + serviced office",
-        "startingPriceAED": 14000
+        "price": 14000
       },
       {
         "name": "Industrial / Warehouse",
         "description": "License + warehouse unit",
-        "startingPriceAED": 28000
+        "price": 28000
       },
       {
         "name": "Premium Package",
         "description": "Full-service setup including licenses, visas & support",
-        "startingPriceAED": 40000
+        "price": 40000
       }
     ]
   },

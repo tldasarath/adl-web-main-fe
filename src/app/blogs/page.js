@@ -4,7 +4,7 @@ import ExclusiveBlogs from "@/Components/BlogPage/ExclusiveBlogs";
 import HeroSection from "@/Components/Common/HeroSection";
 import Footer from "@/Components/Footer/Footer";
 import Navbar from "@/Components/Navbar/Navbar";
-import { blogs } from "@/Datas/blogs";
+import { blogDatas } from "@/Datas/blogs";
 import { getSeo } from "@/lib/api/apis";
 
 import React from "react";
@@ -45,7 +45,7 @@ const page = () => {
         decription={"Learn more about business setup, company formation, visas, compliance, and other essential UAE business services in our articles. Read more blogs to stay informed and make smarter decisions for your business. "}
 
       />
-      <ExclusiveBlogs blogs={[...blogs].reverse().slice(18, 26)} />
+      <ExclusiveBlogs blogs={[...blogDatas].reverse().slice(18, 26)} />
       <Blogs />
 
 

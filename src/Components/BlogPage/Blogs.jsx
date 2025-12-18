@@ -1,17 +1,19 @@
 "use client";
 
-import { blogs } from "@/Datas/blogs";
 import Image from "next/image";
 import { useRef, useState, useEffect } from "react";
 import MeetingComponent from "../Common/MeetingComponent";
 import Container from "../Common/Container";
 import Link from "next/link";
+import { blogs } from "@/lib/api/apis";
+import { blogDatas } from "@/Datas/blogs";
 
 export default function Blogs() {
   const [meetingModal, setMeetingModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [screenWidth, setScreenWidth] = useState(0);
-
+  const [blogData, setBlogData] = useState([])
+  let [totalPage, setTotalPage] = useState(0)
   const blogsPerPage = 8;
   const blogSectionRef = useRef(null);
 
@@ -27,12 +29,30 @@ export default function Blogs() {
   const handleScheduleClick = (value) => {
     setMeetingModal(value);
   };
+  useEffect(() => {
+    const fetchBlog = async () => {
+      try {
+        const res = await blogs(currentPage, "8")
+        if (res.success) {
+          setBlogData(res.data)
+
+          setTotalPage(res.total)
+        }
+
+      } catch (error) {
+        console.error(error);
+
+      }
+    }
+    fetchBlog()
+  }, [])
 
   // Pagination Logic
   const indexOfLastBlog = currentPage * blogsPerPage;
   const indexOfFirstBlog = indexOfLastBlog - blogsPerPage;
-  const currentBlogs = blogs.slice(indexOfFirstBlog, indexOfLastBlog);
-  const totalPages = Math.ceil(blogs.length / blogsPerPage);
+  const currentBlogs = blogData;
+
+  const totalPages = Math.ceil(totalPage / blogsPerPage);
 
   const changePage = (page) => {
     const newPage = Math.max(1, Math.min(page, totalPages));
@@ -56,7 +76,7 @@ export default function Blogs() {
     <div ref={blogSectionRef} className="min-h-screen text-white py-12">
       <Container>
         <div className="max-w-7xl flex flex-col lg:flex-row gap-8">
-          
+
           {/* Blog Area */}
           <div className="flex-1">
             <h1 className="text-3xl font-bold text-center lg:text-left mb-8">
@@ -68,7 +88,7 @@ export default function Blogs() {
               {currentBlogs.map((blog) => (
                 <Link
                   key={blog.id}
-                  href={`/blogs/${blog.id}`}
+                  href={`/blogs/${blog.url}`}
                   className="glass-bg rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition-shadow flex flex-col"
                 >
                   <div className="relative w-full h-40 md:h-56">
@@ -101,11 +121,10 @@ export default function Blogs() {
                 type="button"
                 onClick={handlePrev}
                 disabled={currentPage === 1}
-                className={`px-6 py-2 rounded-md ${
-                  currentPage === 1
+                className={`px-6 py-2 rounded-md ${currentPage === 1
                     ? "glass-bg text-gray-500 cursor-not-allowed"
                     : "glass-bg text-[#E9C05F]"
-                }`}
+                  }`}
               >
                 Prev
               </button>
@@ -156,11 +175,10 @@ export default function Blogs() {
                       key={page}
                       type="button"
                       onClick={() => changePage(page)}
-                      className={`px-4 py-2 rounded-md ${
-                        currentPage === page
+                      className={`px-4 py-2 rounded-md ${currentPage === page
                           ? "border-b-2 border-[#E9C05F] text-white"
                           : ""
-                      }`}
+                        }`}
                     >
                       {page}
                     </button>
@@ -173,11 +191,10 @@ export default function Blogs() {
                 type="button"
                 onClick={handleNext}
                 disabled={currentPage === totalPages}
-                className={`px-6 py-2 rounded-md ${
-                  currentPage === totalPages
+                className={`px-6 py-2 rounded-md ${currentPage === totalPages
                     ? "glass-bg text-gray-500 cursor-not-allowed"
                     : "glass-bg text-[#E9C05F]"
-                }`}
+                  }`}
               >
                 Next
               </button>
@@ -188,12 +205,12 @@ export default function Blogs() {
           {/* Sidebar */}
           <aside className="w-full lg:w-80 flex-shrink-0">
             <div className="lg:sticky lg:top-24 flex flex-col gap-6">
-              
+
               {/* Latest Posts */}
               <div className="hidden md:block glass-bg p-5 rounded-2xl">
                 <h3 className="text-xl font-semibold mb-4">Latest Posts</h3>
                 <ul className="space-y-4">
-                  {blogs
+                  {blogData
                     .slice(-5)
                     .reverse()
                     .map((post) => (

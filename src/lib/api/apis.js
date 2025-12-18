@@ -40,6 +40,55 @@ export const faqs = async (faqs)=>{
         
     }
 }
+export const blogs = async (page,limit=8)=>{
+    try {
+        
+        const res = await axionInstance.get(`/blog/get-blogs?page=${page}&limit=${limit}`)        
+        return res.data
+    } catch (error) {
+        console.error(error);
+        
+    }
+}
+export const blogByUrl = async (blogUrl)=>{
+    try {
+        
+        const res = await axionInstance.get(`/blog/get-blog/${blogUrl}`)        
+        return res.data
+    } catch (error) {
+        console.error(error);
+        
+    }
+}
+export const blogInnerPage = async (subCategory)=>{
+    try {
+        
+        const res = await axionInstance.get(`/blog/get-innerPage-blog/${subCategory}`)        
+        return res.data
+    } catch (error) {
+        console.error(error);
+        
+    }
+}
+
+export const getHeroSection = async () => {
+    try {
+        const response = await axionInstance.get(`/herosection/get-herosection`)
+        return response.data
+    } catch (error) {
+        console.error(error);
+
+    }
+}
+export const getFreezonePackages = async (url) => {
+    try {
+        const response = await axionInstance.get(`/packages/category-packages/${url}`)
+        return response.data
+    } catch (error) {
+        console.error(error);
+
+    }
+}   
 
 export const subscribeNewsletter = async (email) => {
   try {

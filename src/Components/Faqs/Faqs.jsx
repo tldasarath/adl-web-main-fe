@@ -15,7 +15,7 @@ export default function FAQ() {
     useEffect(() => {
         const fetchFaq = async () => {
             try {
-                const res = await faqs("faq")
+                const res = await faqs("faqpage")
                 if (res.success) {
 
                     setFaqdata(res.data)

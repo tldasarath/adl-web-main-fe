@@ -1,4 +1,4 @@
-export const blogs = [
+export const blogDatas = [
 
   //----- Freelancer Visa-------
   {

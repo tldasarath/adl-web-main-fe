@@ -25,7 +25,7 @@ export default function Blogs({blogs}) {
             {blogs?.map((post, i) => (
               <motion.a
                 key={post.id}
-                href={`/blogs/${post.id}`}
+                href={`/blogs/${post.url}`}
                 className="group block rounded-2xl overflow-hidden 
              bg-[linear-gradient(360deg,rgba(57,70,100,1)_0%,rgba(13,19,37,1)_100%)] bg-center
 

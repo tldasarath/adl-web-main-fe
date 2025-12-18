@@ -8,33 +8,41 @@ export function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata(props) {
-    const params = await props.params;
-  const service = serviceDetails.find(s => s.id === params.id);
+export async function generateMetadata({ params }) {
+  const service = serviceDetails.find(
+    s => String(s.id) === String(params.id)
+  );
 
-  const seo = await getSeo("services",service.id);
-  
-
-  if (!seo) {
+  if (!service) {
     return {
-     title: "Business Setup in Dubai | Start Your UAE Company with ADL Business Solutions",
-  description:
-    "Start your business in Dubai with expert guidance from ADL Business Solutions. We handle trade licenses, approvals, and documentation to help you launch your company smoothly in Mainland, Freezone, or Offshore zones.",
-  keywords:
-    "Business setup in Dubai, UAE company formation, business license Dubai, mainland company setup, freezone business setup, start a company in UAE",
-  canonical: "https://adlbusinesssolutions.com/services",
-  type: "article",
+      title: "Service",
+      description: "Service details",
     };
   }
 
-  return {
-    title: seo.title,
-    description: seo.description,
-    keywords: seo.keywords,
-    alternates: {
-      canonical: seo.canonical,
-    },
-  };
+  try {
+    const seo = await getSeo("services", service.id);
+
+    if (!seo) throw new Error("No SEO");
+
+    return {
+      title: seo.title,
+      description: seo.description,
+      keywords: seo.keywords,
+      alternates: {
+        canonical: seo.canonical,
+      },
+    };
+  } catch (error) {
+    console.error("SEO fetch failed (build-safe):", error);
+
+    // ✅ FALLBACK (build never fails)
+    return {
+      title: "Business Setup in Dubai | ADL Business Solutions",
+      description:
+        "Start your business in Dubai with expert guidance from ADL Business Solutions.",
+    };
+  }
 }
 
 

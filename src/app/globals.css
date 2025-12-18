@@ -743,3 +743,50 @@ body {
 .shiny-text.disabled {
   animation: none;
 }
+
+.blog-content h1 {
+  font-size: 2rem;      /* 32px */
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.blog-content h2 {
+  font-size: 1.5rem;    /* 24px */
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.blog-content h3 {
+  font-size: 1.25rem;   /* 20px */
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.blog-content p {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: #d1d5db;
+  margin-bottom: 1rem;
+}
+
+.blog-content ol {
+  padding-left: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.blog-content li {
+  list-style-type: decimal;
+  margin-bottom: 0.5rem;
+}
+
+.blog-content strong {
+  font-weight: 700;
+}
+
+.blog-content em {
+  font-style: italic;
+}
+
+.blog-content u {
+  text-decoration: underline;
+}

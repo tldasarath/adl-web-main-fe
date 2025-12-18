@@ -1,28 +1,81 @@
 "use client";
 import Container from "@/Components/Common/Container";
 import { teamMembers } from "@/Datas/teams";
-import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
-import { motion } from "framer-motion"; // <-- added
+import { motion } from "framer-motion";
 
 const TeamSection = () => {
   const sliderRef = useRef(null);
 
-  // Clone slides for infinite effect
+  // Clone slides once for infinite scroll
   useEffect(() => {
     const slider = sliderRef.current;
     if (slider && !slider.dataset.cloned) {
-      const clone = slider.innerHTML;
-      slider.innerHTML += clone; // Duplicate content
+      slider.innerHTML += slider.innerHTML + slider.innerHTML; // Triplicate children
       slider.dataset.cloned = "true";
     }
   }, []);
 
+  // -------- AUTO SCROLL LOGIC ----------
+  useEffect(() => {
+    const slider = sliderRef.current;
+    if (!slider) return;
+
+    let speed = 0.8; // Increase or decrease for scroll speed
+    let animationFrame;
+
+    const autoScroll = () => {
+      if (!slider.classList.contains("dragging")) {
+        slider.scrollLeft += speed;
+
+        // Reset when reaching half (because content is duplicated)
+        if (slider.scrollLeft >= slider.scrollWidth / 3) {
+          slider.scrollLeft = 0;
+        }
+
+
+
+      }
+
+      animationFrame = requestAnimationFrame(autoScroll);
+    };
+
+    animationFrame = requestAnimationFrame(autoScroll);
+
+    return () => cancelAnimationFrame(animationFrame);
+  }, []);
+
+  // -------- MANUAL DRAG LOGIC ----------
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const scrollLeft = useRef(0);
+
+  const onPointerDown = (e) => {
+    const slider = sliderRef.current;
+    isDragging.current = true;
+    slider.classList.add("dragging");
+
+    startX.current = e.pageX || e.touches?.[0].pageX;
+    scrollLeft.current = slider.scrollLeft;
+  };
+
+  const onPointerMove = (e) => {
+    if (!isDragging.current) return;
+    const slider = sliderRef.current;
+    const x = e.pageX || e.touches?.[0].pageX;
+    const walk = (x - startX.current) * 1.2;
+    slider.scrollLeft = scrollLeft.current - walk;
+  };
+
+  const endDrag = () => {
+    isDragging.current = false;
+    sliderRef.current.classList.remove("dragging");
+  };
+
   return (
     <motion.section
       className="h-auto lg:h-[700px] py-8 md:py-14 w-full overflow-hidden"
-      // 🔥 Premium animation: soft zoom + blur + fade + slight lift
       initial={{ opacity: 0, y: 30, scale: 0.94, filter: "blur(6px)" }}
       whileInView={{
         opacity: 1,
@@ -33,7 +86,7 @@ const TeamSection = () => {
       viewport={{ once: false, amount: 0.25 }}
       transition={{
         duration: 0.9,
-        ease: [0.16, 1, 0.3, 1], // smooth bezier easing (elegant, premium)
+        ease: [0.16, 1, 0.3, 1],
       }}
     >
       <div className="w-full ">
@@ -49,11 +102,19 @@ const TeamSection = () => {
           </div>
         </Container>
 
-        {/* 🌟 Infinite Scrolling Slider */}
+        {/* Slider */}
         <div className="relative w-full overflow-hidden">
           <div
             ref={sliderRef}
-            className="flex gap-4 animate-scroll hover:[animation-play-state:paused]"
+            className="flex gap-4 cursor-grab active:cursor-grabbing overflow-x-scroll scrollbar-hide"
+            style={{ scrollBehavior: "auto" }}
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
+            onPointerUp={endDrag}
+            onPointerLeave={endDrag}
+            onTouchStart={onPointerDown}
+            onTouchMove={onPointerMove}
+            onTouchEnd={endDrag}
           >
             {teamMembers.map((member, idx) => (
               <div
@@ -61,7 +122,7 @@ const TeamSection = () => {
                 className="flex-shrink-0 w-[250px] sm:w-[280px] md:w-[300px] lg:w-[320px] px-2"
               >
                 <div className="glass rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 hover:scale-105 h-full flex flex-col">
-                  {/* 🖼️ Image */}
+                  {/* Image */}
                   <div className="relative w-full h-80 overflow-hidden">
                     <Image
                       src={member.image}
@@ -72,15 +133,12 @@ const TeamSection = () => {
                     />
                   </div>
 
-                  {/* 🧾 Content */}
+                  {/* Content */}
                   <div className="p-4 flex flex-col flex-1 justify-between">
-                    <div className="flex items-center justify-between ">
+                    <div className="flex items-center justify-between">
                       <h3 className="text-lg text-[#E9C05F] font-semibold truncate">
                         {member.name}
                       </h3>
-                      <button className="w-8 md:w-10 h-8 md:h-10 flex ml-4 items-center justify-center border border-[#E9C05F] rounded-full transition-all duration-300 hover:bg-[#E9C05F]/10 hover:translate-x-1">
-                        <ArrowUpRight className="w-6 h-6 text-[#E9C05F]" />
-                      </button>
                     </div>
                     <p className="font-medium mb-5 text-sm">
                       {member.position}
@@ -93,20 +151,16 @@ const TeamSection = () => {
         </div>
       </div>
 
-      {/* 🌀 Keyframes for infinite scroll */}
       <style jsx>{`
-        @keyframes scroll {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
+        .dragging {
+          cursor: grabbing !important;
         }
-
-        .animate-scroll {
-          animation: scroll 40s linear infinite;
-          width: max-content;
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
         }
       `}</style>
     </motion.section>
@@ -114,3 +168,4 @@ const TeamSection = () => {
 };
 
 export default TeamSection;
+                                           

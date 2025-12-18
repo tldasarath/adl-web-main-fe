@@ -13,14 +13,35 @@ import WhyChoose from "@/Components/FreezoneDetailPage/WhyChoose";
 import WhyChooseADL from "@/Components/FreezoneDetailPage/WhyChooseADL";
 import Navbar from "@/Components/Navbar/Navbar";
 import { freezoneDetails } from "@/Datas/freezoneDetails";
+import { getFreezonePackages } from "@/lib/api/apis";
 import { object } from "framer-motion/client";
 import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function page() {
   const params = useParams()
-  const freezone = freezoneDetails.find(item => item.id === params.id);
+ const freezone = freezoneDetails.find(
+    item => String(item.id) === String(params?.id)
+  );
+    const [packages, setPackages] = useState([])
+  
+  useEffect(() => {
+    if (!params?.id) return;
 
+    const fetchPackage = async () => {
+      try {
+        const res = await getFreezonePackages(params.id);
+        if (res?.success) {
+          setPackages(res.data);
+        }
+      } catch (error) {
+        console.error("Package fetch error:", error);
+      }
+    };
 
+    fetchPackage();
+  }, [params?.id]); // 
+  if (!freezone) return null;
 
   return (
     <div>
@@ -35,8 +56,8 @@ export default function page() {
       <TypesOfLicenses title={freezone.typesOfLicenses.title} licenses={freezone.typesOfLicenses.licenses} description={freezone.typesOfLicenses.description} />
       <CompanySetupProcess setupProcess={freezone.setupProcess} />
       <FacilitiesSection facilities={freezone.facilities} />
-      <SetupPackages title={freezone.setupPackages.title} note={freezone.setupPackages.note} packages={freezone.setupPackages.packages} />
-      <WhyChoose title={freezone.whyChoose.title} description={freezone.whyChoose.description} points={freezone.whyChoose.points} documents={freezone.requiredDocuments.documents} />
+      {packages.length > 0 && <SetupPackages title={freezone.setupPackages.title} note={freezone.setupPackages.note} packages={packages} />
+      }      <WhyChoose title={freezone.whyChoose.title} description={freezone.whyChoose.description} points={freezone.whyChoose.points} documents={freezone.requiredDocuments.documents} />
       <WhyChooseADL title={freezone.whyChooseADL.title} points={freezone.whyChooseADL.points} />
       <InnerBanner title={freezone.banner.title} description={freezone.banner.description} buttonText={"Start Your Business Now"} />
       <ClientExperiences />
