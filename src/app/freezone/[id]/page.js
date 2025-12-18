@@ -20,23 +20,28 @@ import { useEffect, useState } from "react";
 
 export default function page() {
   const params = useParams()
-  const freezone = freezoneDetails.find(item => item.id === params.id);
-  const [packages, setPackages] = useState([])
+ const freezone = freezoneDetails.find(
+    item => String(item.id) === String(params?.id)
+  );
+    const [packages, setPackages] = useState([])
+  
   useEffect(() => {
+    if (!params?.id) return;
+
     const fetchPackage = async () => {
       try {
-        const res = await getFreezonePackages(params.id)
-        if (res.success) {
-          setPackages(res.data)
+        const res = await getFreezonePackages(params.id);
+        if (res?.success) {
+          setPackages(res.data);
         }
       } catch (error) {
-        console.error(error);
-
+        console.error("Package fetch error:", error);
       }
-    }
-    fetchPackage()
-  }, [])
+    };
 
+    fetchPackage();
+  }, [params?.id]); // 
+  if (!freezone) return null;
 
   return (
     <div>

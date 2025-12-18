@@ -4,16 +4,21 @@ import Navbar from "@/Components/Navbar/Navbar";
 
 // ✅ 1. BUILD TIME: Generate all static blog pages
 export async function generateStaticParams() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/blog/get-blogs?page=1&limit=1000`,
-    { cache: "no-store" }
-  );
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/blog/get-blogs?page=1&limit=50`,
+      { next: { revalidate: 60 } }
+    );
 
-  const data = await res.json();
+    const data = await res.json();
 
-  return (data?.data || []).map((blog) => ({
-    slug: blog.url,
-  }));
+    return (data?.data || []).map((blog) => ({
+      slug: blog.url,
+    }));
+  } catch (error) {
+    console.error("Static params fetch failed", error);
+    return [];
+  }
 }
 
 // ✅ 2. ✅ SEO METADATA PER BLOG (VERY IMPORTANT)
@@ -22,7 +27,8 @@ export async function generateMetadata({ params }) {
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/blog/get-blog/${slug}`,
-    { cache: "no-store" }
+    { next: { revalidate: 60 } } // ISR
+
   );
 
   const blogRes = await res.json();
@@ -67,7 +73,8 @@ export default async function Page({ params }) {
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/blog/get-blog/${slug}`,
-    { cache: "no-store" }
+    { next: { revalidate: 60 } } // ISR
+
   );
 
   const blog = await res.json();
