@@ -1,41 +1,48 @@
-import { buildSEO } from "@/app/lib/seo";
 import { licenseDetails } from "@/Datas/licenseDetails";
 import { getSeo } from "@/lib/api/apis";
 
 export function generateStaticParams() {
   return licenseDetails.map(item => ({
-    id: item.id,
+    id: String(item.id),
   }));
 }
-export async function generateMetadata(props) {
-      const params = await props.params;
 
-  const license = licenseDetails.find(s => s.id === params.id);
+export async function generateMetadata({ params }) {
+  const license = licenseDetails.find(
+    l => String(l.id) === String(params.id)
+  );
 
-  const seo = await getSeo("license",license.id);
-  
-
-  if (!seo) {
+  // ✅ SAFETY: license not found
+  if (!license) {
     return {
-  title: "UAE Employment Visa Processing | Work Visa UAE | ADL Business Solutions",
-  description:
-    "Fast and reliable UAE employment visa services. Work permit, medical, Emirates ID & residency stamping support by ADL Business Solutions.",
-  keywords:
-    "UAE work visa, Dubai employment visa, UAE labour visa, residency visa UAE",
-  canonical: "https://adlbusinesssolutions.com/freezone-company-setup",
-  type: "article",
+      title: "Business License Services in UAE | ADL Business Solutions",
+      description:
+        "Professional business licensing services in UAE including commercial, professional, and industrial licenses.",
     };
   }
 
-  return {
-    title: seo.title,
-    description: seo.description,
-    keywords: seo.keywords,
-    alternates: {
-      canonical: seo.canonical,
+  try {
+    const seo = await getSeo("license", license.id);
 
-    },
-  };
+    if (!seo) throw new Error("SEO not found");
+
+    return {
+      title: seo.title,
+      description: seo.description,
+      keywords: seo.keywords,
+      alternates: {
+        canonical: seo.canonical,
+      },
+    };
+  } catch {
+    // ✅ NORMAL FALLBACK (NO BUILD FAILURE)
+    return {
+      title: `${license.licenseType} in UAE | ADL Business Solutions`,
+      description:
+        license.description ||
+        "Get expert assistance for UAE business license services with ADL Business Solutions.",
+    };
+  }
 }
 
 export default function LicenseLayout({ children }) {

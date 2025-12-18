@@ -20,10 +20,12 @@ const page = () => {
       const [blogData, setBlogData] = useState([]);
     
     // const license = licenseDetails.find(item => item.id === params.id);
-  const license = useMemo(() => {
-    return licenseDetails.find((item) => item.id === params?.id);
-  }, [params?.id]);
- useEffect(() => {
+    const license = useMemo(() => {
+    return licenseDetails.find(
+      item => String(item.id) === String(params?.id)
+    );
+  }, [params?.id]); 
+  useEffect(() => {
     if (!params?.id) return;
 
     const fetchBlog = async () => {
@@ -38,6 +40,9 @@ const page = () => {
 
     fetchBlog();
   }, [params?.id]);
+
+  // ✅ SAFETY GUARD
+  if (!license) return null;
 
     return (
         <div>

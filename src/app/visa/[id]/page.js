@@ -18,10 +18,13 @@ export default function Page() {
   // const visa = visaDetails.find((item) => item.id === params.id);
   const [blogData, setBlogData] = useState([]);
 
+
   const visa = useMemo(() => {
-    return visaDetails.find((item) => item.id === params?.id);
+    return visaDetails.find(
+      v => String(v.id) === String(params?.id)
+    );
   }, [params?.id]);
- useEffect(() => {
+  useEffect(() => {
     if (!params?.id) return;
 
     const fetchBlog = async () => {
@@ -31,11 +34,13 @@ export default function Page() {
       } catch (error) {
         console.error("Blog fetch error:", error);
         setBlogData([]);
-      } 
+      }
     };
 
     fetchBlog();
   }, [params?.id]);
+    if (!visa) return null;
+
   return (
     <div>
       <Navbar />
