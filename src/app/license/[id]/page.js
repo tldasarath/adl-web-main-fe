@@ -58,7 +58,7 @@ const page = () => {
             <WhyADLSection description={license.whyADL} />
             <InnerBanner title={license.banner.title} description={license.banner.description} buttonText={"Book a Free Consultation"} />
             <FAQS faqs={license.faqs} />
-            <RelatedBlogs blogs={blogData.length ? blogData : license.blogs}  />
+            <RelatedBlogs blogs={blogData.length>0 ? blogData : license.blogs}  />
             <Footer />
         </div>
     );

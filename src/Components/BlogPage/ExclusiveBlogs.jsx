@@ -24,7 +24,7 @@ export default function ExclusiveBlogs({ blogs }) {
               <Link
                 key={index}
                 className="bg-gradient-to-b from-[#1c2334] to-[#0e1424] rounded-2xl overflow-hidden shadow-md min-w-[280px] sm:min-w-[320px] md:min-w-[360px] flex-shrink-0"
-                href={`/blogs/${post.id}`}
+                href={`/blogs/${post.url}`}
 
               >
                 <div className="relative w-full h-72">

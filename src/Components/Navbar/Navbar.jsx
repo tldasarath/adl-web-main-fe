@@ -228,7 +228,7 @@ export default function Navbar() {
           onMouseLeave={() => setIsServiceOpen(false)}
         >
           <div
-            className="glass-bg rounded-xl overflow-hidden"
+            className="bg-[#212639] border-bg rounded-xl overflow-hidden"
             style={{ width: dropdownWidth ? `${dropdownWidth}px` : 'auto' }}
           >
             <div className="max-h-[230px] overflow-y-auto p-6 scrollbar-ultrathin">
@@ -257,7 +257,7 @@ export default function Navbar() {
           onMouseLeave={() => setIsVisaOpen(false)}
         >
           <div
-            className="glass-bg rounded-xl overflow-hidden"
+            className="bg-[#212639] border-bg rounded-xl overflow-hidden flex"
             style={{ width: dropdownWidth ? `${dropdownWidth}px` : 'auto' }}
           >
             <div className="max-h-[230px] overflow-y-auto p-6 scrollbar-medium">
@@ -266,7 +266,7 @@ export default function Navbar() {
                   <Link
                     href={visa.path}
                     key={i}
-                    className="glass-bg rounded-2xl w-[250px] p-3 text-center transition-all hover:bg-white/10"
+                    className="glass-bg rounded-2xl px-6 xl:px-0  w-fit  xl:w-[250px] p-3 text-center transition-all hover:bg-white/10"
                   >
                     {visa.name}
                   </Link>
@@ -286,7 +286,7 @@ export default function Navbar() {
           onMouseLeave={() => setIsLicenseOpen(false)}
         >
           <div
-            className="glass-bg rounded-xl overflow-hidden flex"
+            className="bg-[#212639] border-bg rounded-xl overflow-hidden flex"
             style={{ width: dropdownWidth ? `${dropdownWidth}px` : 'auto' }}
           >
             <div className="max-h-[160px] overflow-y-auto p-6 w-3/4 scrollbar-ultrathin">
@@ -295,7 +295,7 @@ export default function Navbar() {
                   <Link
                     href={license.path}
                     key={i}
-                    className="glass-bg rounded-2xl w-[250px] p-3 text-center transition-all hover:bg-white/10"
+                    className="glass-bg rounded-2xl px-6 xl:px-0  w-fit  xl:w-[250px] p-3 text-center transition-all hover:bg-white/10"
                   >
                     {license.name}
                   </Link>
